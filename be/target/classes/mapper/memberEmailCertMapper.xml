@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.toy.be.dao.MemberEmailCertMapper">
+    <select id="selectCertCode" parameterType="string" resultType="int">
+        select mem_id
+        from member_email_cert
+        where mem_cert_code = #{cert_code};
+    </select>
+
+    <insert id="insertCertCode" parameterType="map">
+        insert into member_email_cert (mem_id, mem_cert_code)
+        values (#{id}, #{cert_code});
+    </insert>
+</mapper>

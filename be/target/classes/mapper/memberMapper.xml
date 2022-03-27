@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.toy.be.dao.MemberMapper">
+    <resultMap type="MemberDto" id="MemberDtoResultMap">
+        <result property="id" column="mem_id"/>
+        <result property="email" column="mem_email"/>
+        <result property="password" column="mem_password"/>
+        <result property="username" column="mem_username"/>
+        <result property="phone" column="mem_phone"/>
+        <result property="birthday" column="mem_birthday"/>
+        <result property="email_cert" column="mem_email_cert"/>
+        <result property="register_datetime" column="mem_register_datetime"/>
+        <result property="isLogin" column="mem_isLogin"/>
+    </resultMap>
+
+    <select id="selectDetail" parameterType="string" resultType="MemberDto" resultMap="MemberDtoResultMap">
+        select mem_id, mem_email, mem_password, mem_username, mem_phone, mem_birthday, mem_email_cert, mem_register_datetime, mem_isLogin
+        from member
+        where mem_email = #{email};
+    </select>
+
+    <select id="selectEmail" parameterType="string" resultType="string">
+        select mem_email
+        from member
+        where mem_email = #{email};
+    </select>
+
+    <select id="selectIsLogin" parameterType="int" resultType="boolean">
+        select mem_isLogin
+        from member
+        where mem_id = #{id};
+    </select>
+
+    <select id="selectEmailCert" parameterType="int" resultType="boolean">
+        select mem_email_cert
+        from member
+        where mem_id = #{id};
+    </select>
+
+    <update id="updateIsLogin" parameterType="int">
+        update member
+        set mem_isLogin = mem_isLogin ^ 1
+        where mem_id = #{id};
+    </update>
+
+    <update id="updateEmailCert" parameterType="int">
+        update member
+        set mem_email_cert = 1
+        where mem_id = #{id};
+    </update>
+
+    <insert id="insert" parameterType="MemberDto" useGeneratedKeys="true" keyProperty="id" keyColumn="mem_id">
+        insert into member (mem_email, mem_password, mem_username, mem_phone, mem_birthday)
+        values (#{email}, #{password}, #{username}, #{phone}, #{birthday});
+    </insert>
+
+
+
+</mapper>
